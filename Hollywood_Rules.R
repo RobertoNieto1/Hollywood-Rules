@@ -54,3 +54,25 @@ t.test(datos$ROI, conf.level = 0.95)
 
 # 2c. Prueba de hipótesis: ¿el ROI promedio es mayor al 12%?
 t.test(datos$ROI, mu = 0.12, alternative = "greater")
+
+# Pregunta 3
+
+# 3a. Comparar Total U.S. Gross entre comedias y no comedias
+datos$Comedia <- datos$Genre == "Comedy"
+
+t.test(`Total U.S. Gross` ~ Comedia, data = datos)
+# 3a: No hay diferencia estadísticamente significativa entre comedias y no comedias.
+
+
+
+# 3b. Comparar ROI entre comedias y no comedias
+t.test(ROI ~ Comedia, data = datos)
+# 3b: Sí hay diferencia estadísticamente significativa en el ROI entre comedias y no comedias.
+
+# Pregunta 4
+
+# 4a. Comparar Total U.S. Gross entre películas R-rated y no R-rated
+datos$R_Rated <- datos$MPAA_D == 1
+
+t.test(`Total U.S. Gross` ~ R_Rated, data = datos)
+#4a: No hay diferencia estadísticamente significativa entre películas R-rated y no R-rated.
