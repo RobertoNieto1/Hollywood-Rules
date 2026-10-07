@@ -387,3 +387,159 @@ ic_cambio_100
 # El intervalo de confianza del 95% para este incremento se encuentra
 # aproximadamente entre 3.55% y 6.52%.
 
+# ============================================================
+# PREGUNTA 7
+# ============================================================
+
+# 7a. Regresion lineal simple entre Opening Gross
+# y Total U.S. Gross
+
+modelo7_simple <- lm(
+  `Total U.S. Gross` ~ `Opening Gross`,
+  data = datos
+)
+
+summary(modelo7_simple)
+
+# 7b. Si el Opening Gross representa el 25% del Total U.S. Gross,
+# entonces:
+# Opening Gross = 0.25 * Total U.S. Gross
+# Por lo tanto:
+# Total U.S. Gross = 4 * Opening Gross
+# La pendiente teorica deberia ser igual a 4.
+
+pendiente_teorica <- 1 / 0.25
+
+pendiente_teorica
+
+coef(modelo7_simple)
+
+confint(
+  modelo7_simple,
+  "Opening Gross",
+  level = 0.95
+)
+
+# Corregir nombre del coeficiente de Opening Gross
+
+nombre_opening <- grep(
+  "Opening Gross",
+  names(coef(modelo7_simple)),
+  value = TRUE
+)
+
+nombre_opening
+
+# Intervalo de confianza del 95% para la pendiente
+
+confint(
+  modelo7_simple,
+  parm = nombre_opening,
+  level = 0.95
+)
+
+# 7c. La pendiente estimada es aproximadamente 3.12.
+# El intervalo de confianza del 95% para la pendiente va
+# aproximadamente de 2.69 a 3.56.
+#
+# Como el valor teorico de 4 no pertenece a este intervalo,
+# se rechaza la hipotesis de que la pendiente sea igual a 4.
+# Por lo tanto, con este modelo se rechaza la regla segun la cual
+# el Opening Gross representa exactamente el 25% del Total U.S. Gross.
+
+# ============================================================
+# 7d. Critica del analisis anterior
+# ============================================================
+
+# La regla del 25% implica una relacion exacta:
+# Total U.S. Gross = 4 * Opening Gross.
+#
+# Por lo tanto, no solamente supone una pendiente igual a 4,
+# sino tambien un intercepto igual a cero.
+#
+# La regresion anterior permite un intercepto diferente de cero,
+# por lo que comprobar solamente si la pendiente es igual a 4
+# no representa completamente la regla que se quiere evaluar.
+
+# Diagnosticos del modelo lineal simple
+
+par(mfrow = c(2, 2))
+plot(modelo7_simple)
+par(mfrow = c(1, 1))
+summary(modelo7_simple)$coefficients
+
+# ============================================================
+# 7e. Modelo sin intercepto
+# ============================================================
+
+modelo7_final <- lm(
+  `Total U.S. Gross` ~ 0 + `Opening Gross`,
+  data = datos
+)
+
+summary(modelo7_final)
+
+# ============================================================
+# 7f. Evaluar nuevamente la regla del 25%
+# H0: pendiente = 4
+# H1: pendiente diferente de 4
+# ============================================================
+
+nombre_opening_final <- grep(
+  "Opening Gross",
+  names(coef(modelo7_final)),
+  value = TRUE
+)
+
+beta_7_final <- coef(modelo7_final)[nombre_opening_final]
+
+se_7_final <- summary(modelo7_final)$coefficients[
+  nombre_opening_final,
+  "Std. Error"
+]
+
+t_7_final <- (beta_7_final - 4) / se_7_final
+
+gl_7_final <- df.residual(modelo7_final)
+
+pvalor_7_final <- 2 * pt(
+  -abs(t_7_final),
+  df = gl_7_final
+)
+
+beta_7_final
+se_7_final
+t_7_final
+pvalor_7_final
+
+# ============================================================
+# 7g. Proporcion de variacion explicada
+# ============================================================
+
+r2_7_final <- summary(modelo7_final)$r.squared
+
+r2_7_final
+
+r2_7_final * 100
+
+# 7e. Dado que el intercepto del modelo simple no fue
+# estadisticamente significativo, se estima un nuevo modelo
+# sin intercepto, obligando a que la recta pase por el origen.
+
+# Modelo final:
+# Total U.S. Gross = beta * Opening Gross
+
+# 7f. El p-value obtenido es 1.861334e-07,
+# claramente menor que 0.05.
+#
+# Por lo tanto, se rechaza H0: beta = 4.
+# Incluso utilizando el modelo sin intercepto, existe evidencia
+# estadistica para rechazar la regla de que el Opening Gross
+# corresponde exactamente al 25% del Total U.S. Gross.
+
+# 7g. El R-cuadrado del modelo sin intercepto es 0.916965.
+# Por lo tanto, aproximadamente el 91.70% de la variacion
+# del Total U.S. Gross es explicada por el Opening Gross.
+
+# Nota: al tratarse de una regresion sin intercepto,
+# R utiliza un R-cuadrado no centrado (uncentered R-squared).
