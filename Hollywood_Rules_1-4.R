@@ -1,5 +1,5 @@
 library(readxl)
-datos <- read_excel("GitHub/Hollywood-Rules/Hollywood.xls", sheet = "Exhibit 1")
+datos <- read_excel("Hollywood.xls", sheet = "Exhibit 1")
 
 # Revisar los primeros datos
 head(datos)

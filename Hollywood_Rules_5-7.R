@@ -77,10 +77,9 @@ coef_sequel / 1000000
 # aproximadamente 31.67 millones de dolares mayor que
 # las peliculas que no son secuelas.
 
-par(mfrow = c(2, 2))
-plot(modelo5_final)
-
-par(mfrow = c(1, 1))
+png("gráficos/5_modelo_final.png")
+par(mfrow = c(2, 2)); plot(modelo5_final)
+dev.off()
 
 modelo5_final <- lm(
   `Total U.S. Gross` ~ Budget + Comedia + Sequel,
@@ -102,9 +101,9 @@ modelo5_log <- lm(
 
 summary(modelo5_log)
 
-par(mfrow = c(2, 2))
-plot(modelo5_log)
-par(mfrow = c(1, 1))
+png("gráficos/5_modelo_log_final.png")
+par(mfrow = c(2, 2)); plot(modelo5_log_final)
+dev.off()
 
 # ============================================================
 # AJUSTE DEL PUNTO 5 - MODELO LOGARITMICO
@@ -137,9 +136,9 @@ modelo5_log_final <- lm(
 
 summary(modelo5_log_final)
 
-par(mfrow = c(2, 2))
-plot(modelo5_log_final)
-par(mfrow = c(1, 1))
+png("gráficos/5_modelo_log_final.png")
+par(mfrow = c(2, 2)); plot(modelo5_log_final)
+dev.off()
 
 summary(modelo5_log_final)
 
@@ -181,9 +180,10 @@ summary(modelo6_completo)
 
 # Diagnosticos del modelo 6 original
 
-par(mfrow = c(2, 2))
-plot(modelo6_completo)
-par(mfrow = c(1, 1))
+png("gráficos/6_modelo_completo.png")
+par(mfrow = c(2, 2)); plot(modelo6_completo)
+dev.off()
+
 # Modelo logaritmico completo para comparar
 
 modelo6_log_completo <- lm(
@@ -195,9 +195,9 @@ modelo6_log_completo <- lm(
 
 summary(modelo6_log_completo)
 
-par(mfrow = c(2, 2))
-plot(modelo6_log_completo)
-par(mfrow = c(1, 1))
+png("gráficos/6_modelo_log_completo.png")
+par(mfrow = c(2, 2)); plot(modelo6_log_completo)
+dev.off()
 
 # 6b. Primer ajuste: eliminar Holiday
 
@@ -460,9 +460,10 @@ confint(
 
 # Diagnosticos del modelo lineal simple
 
-par(mfrow = c(2, 2))
-plot(modelo7_simple)
-par(mfrow = c(1, 1))
+png("gráficos/7_modelo_simple.png")
+par(mfrow = c(2, 2)); plot(modelo7_simple)
+dev.off()
+
 summary(modelo7_simple)$coefficients
 
 # ============================================================
