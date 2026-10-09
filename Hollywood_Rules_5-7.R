@@ -101,8 +101,8 @@ modelo5_log <- lm(
 
 summary(modelo5_log)
 
-png("gráficos/5_modelo_log_final.png")
-par(mfrow = c(2, 2)); plot(modelo5_log_final)
+png("gráficos/5_modelo_log.png")
+par(mfrow = c(2, 2)); plot(modelo5_log)
 dev.off()
 
 # ============================================================
