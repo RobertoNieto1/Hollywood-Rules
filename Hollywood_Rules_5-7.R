@@ -3,10 +3,7 @@
 
 library(readxl)
 
-datos <- read_excel(
-  "Hollywood.xls",
-  sheet = "Exhibit 1"
-)
+datos <- read_excel("Hollywood.xls", sheet = "Exhibit 1")
 
 head(datos)
 names(datos)
